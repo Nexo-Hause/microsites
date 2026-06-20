@@ -95,11 +95,12 @@ function render(d, changed){
   document.getElementById('lanes').innerHTML = d.lanes.map(l=>
     `<div class="lane"><h3>${l.h}</h3><p class="big">${l.big}</p><p>${l.p}</p></div>`).join('');
   const curItems = new Set(); d.phases.forEach(p=>p.items.forEach(i=>curItems.add(i)));
+  const isRecent = updatedMs && (Date.now()-updatedMs) < 300000;
   document.getElementById('phases').innerHTML = d.phases.map(p=>{
     const [bc,bt]=badge(p.status);
     return `<div class="phase"><span class="node ${nodeCls(p.status)}"></span>
       <div class="card ${p.now?'now':''}"><div class="ph-head"><h2>${p.n}</h2><span class="badge ${bc}">${bt}</span></div>
-      <ul>${p.items.map(i=>{const isNew = prevItems && !prevItems.has(i); return `<li class="${isNew?'justchanged':''}">${i}</li>`;}).join('')}</ul></div></div>`;}).join('');
+      <ul>${p.items.map(i=>{const isNew = prevItems && !prevItems.has(i); const fresh = isRecent && i.indexOf('⚡')>=0; return `<li class="${(isNew||fresh)?'justchanged':''}">${i}</li>`;}).join('')}</ul></div></div>`;}).join('');
   document.getElementById('gate').innerHTML = `<h4>${d.gate.h}</h4>`+
     d.gate.rows.map(r=>`<div class="row"><span class="dot ${dotCls(r.s)}"></span><div>${r.t}</div></div>`).join('');
   document.getElementById('price').innerHTML = `<h4>${d.price.h}</h4>`+
@@ -114,8 +115,8 @@ async function tick(){
     const r = await fetch('./roadmap.json?t='+Date.now(), {cache:'no-store'});
     const d = await r.json();
     const changed = lastStamp && lastStamp !== d.updated;
-    render(d, changed); lastStamp = d.updated;
     updatedMs = Date.parse(d.updated);
+    render(d, changed); lastStamp = d.updated;
     document.getElementById('checked').textContent = new Date().toLocaleTimeString();
     if(changed){ const w=document.querySelector('.wrap'); w.classList.remove('flash'); void w.offsetWidth; w.classList.add('flash'); }
   }catch(e){ document.getElementById('checked').textContent = 'sin conexión'; }
