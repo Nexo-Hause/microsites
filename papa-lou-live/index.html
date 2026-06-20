@@ -1,0 +1,123 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Loading…</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--p:#0B2A4A;--pd:#06192F;--a:#d9ac26;--ch:#C9D2DC;--ink:#0E141B;--paper:#fff;--mut:#5A6573;--ok:#1FAE5A;--hf:'Space Grotesk';--bf:'Inter'}
+html{scroll-behavior:smooth}
+body{font-family:var(--bf),system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.hf{font-family:var(--hf),var(--bf),sans-serif;letter-spacing:-.02em;line-height:1.1}
+img{display:block;max-width:100%}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+.owner-ribbon{background:var(--ink);color:#fff;font-size:13px;text-align:center;padding:8px 14px}
+.owner-ribbon b{color:var(--a)} .owner-ribbon a{color:#fff;text-decoration:underline;margin-left:6px}
+header.top{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid #eef0f3}
+.nav{display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{font-family:var(--hf);font-weight:700;font-size:19px;color:var(--p)}
+.nav a.call{background:var(--p);color:#fff;padding:9px 16px;border-radius:999px;text-decoration:none;font-weight:600;font-size:14px}
+.hero{position:relative;color:#fff;min-height:74vh;display:flex;align-items:flex-end;background:var(--pd)}
+.hero .bg{position:absolute;inset:0;object-fit:cover;width:100%;height:100%;opacity:.5}
+.hero .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,25,47,.35),rgba(6,25,47,.92))}
+.hero .inner{position:relative;padding:48px 0 44px;max-width:780px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--a);margin-bottom:14px}
+.hero h1{font-size:clamp(30px,6vw,52px);font-weight:700;margin-bottom:16px}
+.hero p.sub{font-size:clamp(15px,2.3vw,19px);color:#dfe6ee;max-width:620px;margin-bottom:24px}
+.stars{color:var(--a);letter-spacing:2px}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;text-decoration:none;font-weight:600;font-size:15px}
+.btn-a{background:var(--a);color:var(--ink)} .btn-g{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5)}
+section{padding:62px 0} section.alt{background:#f6f8fa}
+.eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--a);margin-bottom:10px}
+.sec-h{font-size:clamp(23px,4vw,34px);font-weight:700;color:var(--p);margin-bottom:10px;max-width:680px}
+.sec-p{color:var(--mut);max-width:640px;margin-bottom:30px}
+.grid{display:grid;gap:16px}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+.card{background:#fff;border:1px solid #e9edf1;border-radius:16px;padding:22px}
+.card h3{font-size:18px;color:var(--p);margin-bottom:7px}.card p{color:var(--mut);font-size:14.5px}
+.hl{display:flex;gap:11px;align-items:flex-start;padding:13px 0;border-bottom:1px solid #e9edf1;font-size:15px}
+.hl:last-child{border:0}.hl .dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--a);margin-top:8px}
+.gal{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.gal img{border-radius:12px;aspect-ratio:1;object-fit:cover;width:100%}
+.gal img.big{grid-column:span 2;grid-row:span 2;aspect-ratio:auto;height:100%}
+.rev{break-inside:avoid;background:#fff;border:1px solid #e9edf1;border-radius:16px;padding:20px;margin-bottom:16px}
+.rev .nm{font-weight:600;color:var(--p);margin-top:10px;font-size:14px}.rev .src{color:var(--mut);font-size:12px}
+.rev p{font-size:14.5px;color:#2a3340}
+.revcols{columns:2;column-gap:16px}
+.ev{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid #e9edf1;border-left:4px solid var(--a);border-radius:12px;padding:16px 18px;margin-bottom:12px}
+.ev .date{flex:none;text-align:center;background:var(--p);color:#fff;border-radius:10px;padding:8px 12px;min-width:64px}
+.ev .date .m{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--a)}.ev .date .d{font-size:22px;font-weight:700;font-family:var(--hf)}
+.ev h3{font-size:16px;color:var(--p)}.ev p{color:var(--mut);font-size:14px}
+form.review{background:#fff;border:1px solid #e9edf1;border-radius:16px;padding:22px;max-width:560px}
+form.review input,form.review textarea{width:100%;border:1px solid #d8dee5;border-radius:10px;padding:11px 13px;font:inherit;margin-bottom:12px}
+form.review .stars-in{font-size:26px;color:#d8dee5;cursor:pointer;margin-bottom:12px}
+form.review .stars-in span.on{color:var(--a)}
+form.review button{background:var(--p);color:#fff;border:0;border-radius:999px;padding:12px 24px;font-weight:600;font:inherit;cursor:pointer}
+.note{font-size:12.5px;color:var(--mut);margin-top:10px}
+footer{background:var(--pd);color:#cdd6e0;padding:46px 0;font-size:14px}
+footer .brand{color:#fff;font-size:20px;margin-bottom:8px}footer a{color:#cdd6e0}
+.hours li{list-style:none;display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.08);max-width:320px}
+@media(max-width:760px){.g3,.g2{grid-template-columns:1fr}.revcols{columns:1}.gal{grid-template-columns:repeat(2,1fr)}.gal img.big{grid-column:span 2}}
+</style></head>
+<body>
+<div id="app"></div>
+<script>
+const MM=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const stars=n=>'★'.repeat(Math.round(n||5))+'☆'.repeat(5-Math.round(n||5));
+function render(d){
+  const c=d.design||{}, ct=d.contact||{};
+  const r=document.documentElement.style;
+  if(c.primary)r.setProperty('--p',c.primary); if(c.primaryDark)r.setProperty('--pd',c.primaryDark);
+  if(c.accent)r.setProperty('--a',c.accent); if(c.chrome)r.setProperty('--ch',c.chrome);
+  if(c.ink)r.setProperty('--ink',c.ink); if(c.paper)r.setProperty('--paper',c.paper);
+  if(c.muted)r.setProperty('--mut',c.muted); if(c.success)r.setProperty('--ok',c.success);
+  if(c.headlineFont)r.setProperty('--hf',"'"+c.headlineFont+"'"); if(c.bodyFont)r.setProperty('--bf',"'"+c.bodyFont+"'");
+  document.title=d.business.name;
+  const tel='tel:'+(ct.phone||'');
+  const callBtn='<a class="btn btn-a" href="'+tel+'">📞 Call '+esc(ct.phone_display||'')+'</a>';
+  const hero=(d.photos||[]).find(p=>p.hero)||(d.photos||[])[0];
+  // EVENTOS: ocultar los que ya terminaron (end < hoy)
+  const today=new Date().toISOString().slice(0,10);
+  const evs=(d.events||[]).filter(e=>(e.end||e.start)>=today).sort((a,b)=>(a.start>b.start?1:-1));
+  const evDate=e=>{const dt=new Date((e.start||'')+'T00:00:00');return '<div class="date"><div class="m">'+MM[dt.getMonth()]+'</div><div class="d">'+dt.getDate()+'</div></div>';};
+  const ag=d.reviews_aggregate||{};
+  document.getElementById('app').innerHTML=`
+  <div class="owner-ribbon">👋 This is a live preview built for <b>${esc(d.business.name)}</b> — like it? <a href="#claim">Make it yours →</a></div>
+  <header class="top"><div class="wrap nav"><div class="brand">${esc(d.business.name)}</div>${callBtn}</div></header>
+  <section class="hero">${hero?'<img class="bg" src="'+hero.src+'" alt="'+esc(hero.alt)+'">':''}<div class="scrim"></div>
+    <div class="wrap inner"><div class="kicker">Auto Detailing · ${esc(ct.city||'')}</div>
+    <h1>${esc(d.business.headline)}</h1><p class="sub">${esc(d.business.tagline)}</p>
+    <div class="cta-row">${callBtn}<a class="btn btn-g" href="#reviews"><span class="stars">${stars(ag.rating)}</span>&nbsp; ${ag.count||''} Google reviews</a></div></div></section>
+
+  <section><div class="wrap"><div class="eyebrow">What we do</div><h2 class="sec-h">Honest work, visible results.</h2>
+    <p class="sec-p">Every vehicle gets inspected before a price — no upsells, just what your car actually needs.</p>
+    <div class="grid g3">${(d.services||[]).map(s=>'<div class="card"><h3>'+esc(s.name)+'</h3><p>'+esc(s.desc)+'</p></div>').join('')}</div></div></section>
+
+  ${(d.photos||[]).length?'<section class="alt"><div class="wrap"><div class="eyebrow">The work</div><h2 class="sec-h">See the difference.</h2><div class="gal">'+d.photos.map((p,i)=>'<img class="'+(i===0?'big':'')+'" src="'+p.src+'" alt="'+esc(p.alt)+'" loading="lazy">').join('')+'</div></div></section>':''}
+
+  ${(d.highlights||[]).length?'<section><div class="wrap"><div class="eyebrow">Why Papá Lou</div><h2 class="sec-h">What makes the shop different.</h2><div style="max-width:680px">'+d.highlights.map(h=>'<div class="hl"><span class="dot"></span><div>'+esc(h)+'</div></div>').join('')+'</div></div></section>':''}
+
+  ${evs.length?'<section class="alt"><div class="wrap"><div class="eyebrow">What\'s on</div><h2 class="sec-h">Upcoming specials & events.</h2><p class="sec-p">Past events drop off automatically — this section keeps itself current.</p>'+evs.map(e=>'<div class="ev">'+evDate(e)+'<div><h3>'+esc(e.title)+'</h3><p>'+esc(e.description)+'</p></div></div>').join('')+'</div></section>':''}
+
+  <section id="reviews"><div class="wrap"><div class="eyebrow">Reviews</div><h2 class="sec-h">${stars(ag.rating)} ${ag.rating||5}.0 · ${ag.count||''} reviews</h2>
+    <div class="revcols">${(d.reviews||[]).map(rv=>'<div class="rev"><span class="stars">'+stars(rv.rating)+'</span><p>'+esc(rv.text)+'</p><div class="nm">'+esc(rv.name)+'</div><div class="src">via '+esc(rv.source||'Google')+'</div></div>').join('')}</div></div></section>
+
+  ${d.review_form&&d.review_form.enabled?'<section class="alt" id="leave-review"><div class="wrap"><div class="eyebrow">Had a great experience?</div><h2 class="sec-h">Leave a review.</h2><p class="sec-p">Your words help other drivers in '+esc(ct.city||'town')+' find an honest shop.</p><form class="review" onsubmit="return submitReview(event)"><input name="name" placeholder="Your name" required><div class="stars-in" id="si">'+[1,2,3,4,5].map(n=>'<span data-n="'+n+'" onclick="setStars('+n+')">★</span>').join('')+'</div><textarea name="text" rows="3" placeholder="Tell us about your visit…" required></textarea><button type="submit">Submit review</button><div class="note">'+esc(d.review_form.note||'')+'</div></form></div></section>':''}
+
+  <footer id="claim"><div class="wrap"><div class="brand">${esc(d.business.name)}</div>
+    <div class="grid g3" style="margin-top:18px">
+      <div><div style="color:#fff;font-weight:600;margin-bottom:8px">Visit</div>${esc(ct.address||'')}<br><a href="${esc(ct.maps||'#')}">Open in Maps →</a></div>
+      <div><div style="color:#fff;font-weight:600;margin-bottom:8px">Call</div><a href="${tel}">${esc(ct.phone_display||'')}</a></div>
+      <div><div style="color:#fff;font-weight:600;margin-bottom:8px">Hours</div><ul class="hours">${(ct.hours||[]).map(h=>{const x=h.split(': ');return '<li><span>'+esc(x[0])+'</span><span>'+esc(x[1]||'')+'</span></li>';}).join('')}</ul></div>
+    </div>
+    <div class="note" style="color:#8aa;margin-top:26px">Live preview · content updates from data.json without rebuilding the page.</div>
+  </div></footer>`;
+}
+let curStars=5;
+window.setStars=n=>{curStars=n;document.querySelectorAll('#si span').forEach(s=>s.classList.toggle('on',+s.dataset.n<=n));};
+window.submitReview=e=>{e.preventDefault();const f=e.target;alert('Thanks, '+f.name.value+'! Your '+curStars+'-star review was submitted and will appear after a quick review.');f.reset();setStars(5);return false;};
+async function tick(){try{const r=await fetch('./data.json?t='+Date.now(),{cache:'no-store'});render(await r.json());}catch(e){document.getElementById('app').innerHTML='<p style="padding:40px">Could not load data.json</p>';}}
+tick();setStars(5);
+</script>
+</body></html>
