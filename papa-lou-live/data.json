@@ -155,12 +155,6 @@
       "start": "2026-08-10",
       "end": "2026-08-24",
       "description": "Full interior restoration at a flat seasonal price."
-    },
-    {
-      "title": "⚡ Live-edit demo",
-      "start": "2026-06-25",
-      "end": "2026-09-01",
-      "description": "Esta tarjeta apareció editando SOLO data.json — el index.html no se tocó. Bórrala del JSON y desaparece."
     }
   ],
   "review_form": {
