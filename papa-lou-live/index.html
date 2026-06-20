@@ -11,8 +11,21 @@ body{font-family:var(--bf),system-ui,sans-serif;color:var(--ink);background:var(
 h1,h2,h3,.hf{font-family:var(--hf),var(--bf),sans-serif;letter-spacing:-.02em;line-height:1.1}
 img{display:block;max-width:100%}
 .wrap{max-width:1060px;margin:0 auto;padding:0 20px}
-.owner-ribbon{background:var(--ink);color:#fff;font-size:13px;text-align:center;padding:8px 14px}
-.owner-ribbon b{color:var(--a)} .owner-ribbon a{color:#fff;text-decoration:underline;margin-left:6px}
+.owner-ribbon{background:var(--a);color:var(--ink);font-size:14px;font-weight:600;text-align:center;padding:12px 14px}
+.owner-ribbon b{color:var(--pd)} .owner-ribbon a{color:var(--pd);font-weight:800;text-decoration:underline;margin-left:6px}
+.float-claim{position:fixed;right:16px;bottom:16px;z-index:60;background:var(--a);color:var(--ink);font-family:var(--hf);font-weight:700;padding:14px 22px;border-radius:999px;text-decoration:none;box-shadow:0 12px 34px -8px rgba(0,0,0,.5);font-size:15px;display:inline-flex;gap:8px;align-items:center;animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 12px 34px -8px rgba(0,0,0,.5),0 0 0 0 rgba(217,172,38,.55)}70%{box-shadow:0 12px 34px -8px rgba(0,0,0,.5),0 0 0 16px rgba(217,172,38,0)}100%{box-shadow:0 12px 34px -8px rgba(0,0,0,.5),0 0 0 0 rgba(217,172,38,0)}}
+.evsec{background:#fff6e3}
+.claim{background:linear-gradient(135deg,var(--p),var(--pd));color:#fff;text-align:center}
+.claim .eyebrow{color:var(--a)}
+.claim h2{color:#fff;font-size:clamp(27px,4.6vw,42px);max-width:760px;margin:0 auto 14px}
+.claim p.lead{color:#dfe6ee;max-width:580px;margin:0 auto 26px;font-size:17px}
+.claim .expect{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:780px;margin:0 auto 30px;text-align:left}
+.claim .expect .e{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13);border-radius:14px;padding:18px}
+.claim .expect .e b{color:var(--a);display:block;margin-bottom:5px;font-family:var(--hf);font-size:15px}
+.claim .expect .e span{color:#cdd6e0;font-size:14px}
+.claim .price{font-size:15px;color:#cdd6e0;margin-top:16px}.claim .price b{color:#fff;font-size:21px}
+@media(max-width:760px){.claim .expect{grid-template-columns:1fr}}
 header.top{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid #eef0f3}
 .nav{display:flex;align-items:center;justify-content:space-between;height:62px}
 .brand{font-family:var(--hf);font-weight:700;font-size:19px;color:var(--p)}
@@ -75,7 +88,10 @@ function render(d){
   if(c.headlineFont)r.setProperty('--hf',"'"+c.headlineFont+"'"); if(c.bodyFont)r.setProperty('--bf',"'"+c.bodyFont+"'");
   document.title=d.business.name;
   const tel='tel:'+(ct.phone||'');
-  const callBtn='<a class="btn btn-a" href="'+tel+'">📞 Call '+esc(ct.phone_display||'')+'</a>';
+  const waOK=ct.whatsapp_verified===true&&ct.whatsapp;
+  const callBtn=waOK
+    ? '<a class="btn btn-a" href="https://wa.me/'+esc(ct.whatsapp)+'">💬 WhatsApp us</a>'
+    : '<a class="btn btn-a" href="'+tel+'">📞 Call '+esc(ct.phone_display||'')+'</a>';
   const hero=(d.photos||[]).find(p=>p.hero)||(d.photos||[])[0];
   // EVENTOS: ocultar los que ya terminaron (end < hoy)
   const today=new Date().toISOString().slice(0,10);
@@ -83,7 +99,8 @@ function render(d){
   const evDate=e=>{const dt=new Date((e.start||'')+'T00:00:00');return '<div class="date"><div class="m">'+MM[dt.getMonth()]+'</div><div class="d">'+dt.getDate()+'</div></div>';};
   const ag=d.reviews_aggregate||{};
   document.getElementById('app').innerHTML=`
-  <div class="owner-ribbon">👋 This is a live preview built for <b>${esc(d.business.name)}</b> — like it? <a href="#claim">Make it yours →</a></div>
+  <div class="owner-ribbon">👋 This is a live preview built for <b>${esc(d.business.name)}</b> — <a href="#claim">Make it yours →</a></div>
+  <a class="float-claim" href="#claim">✨ Make it yours</a>
   <header class="top"><div class="wrap nav"><div class="brand">${esc(d.business.name)}</div>${callBtn}</div></header>
   <section class="hero">${hero?'<img class="bg" src="'+hero.src+'" alt="'+esc(hero.alt)+'">':''}<div class="scrim"></div>
     <div class="wrap inner"><div class="kicker">Auto Detailing · ${esc(ct.city||'')}</div>
@@ -98,14 +115,27 @@ function render(d){
 
   ${(d.highlights||[]).length?'<section><div class="wrap"><div class="eyebrow">Why Papá Lou</div><h2 class="sec-h">What makes the shop different.</h2><div style="max-width:680px">'+d.highlights.map(h=>'<div class="hl"><span class="dot"></span><div>'+esc(h)+'</div></div>').join('')+'</div></div></section>':''}
 
-  ${evs.length?'<section class="alt"><div class="wrap"><div class="eyebrow">What\'s on</div><h2 class="sec-h">Upcoming specials & events.</h2><p class="sec-p">Past events drop off automatically — this section keeps itself current.</p>'+evs.map(e=>'<div class="ev">'+evDate(e)+'<div><h3>'+esc(e.title)+'</h3><p>'+esc(e.description)+'</p></div></div>').join('')+'</div></section>':''}
+  ${evs.length?'<section class="evsec" id="events"><div class="wrap"><div class="eyebrow">📅 What\'s on now</div><h2 class="sec-h">This month\'s specials & events.</h2><p class="sec-p">Live and current — past dates drop off automatically, so this never goes stale.</p>'+evs.map(e=>'<div class="ev">'+evDate(e)+'<div><h3>'+esc(e.title)+'</h3><p>'+esc(e.description)+'</p></div></div>').join('')+'</div></section>':''}
 
   <section id="reviews"><div class="wrap"><div class="eyebrow">Reviews</div><h2 class="sec-h">${stars(ag.rating)} ${ag.rating||5}.0 · ${ag.count||''} reviews</h2>
     <div class="revcols">${(d.reviews||[]).map(rv=>'<div class="rev"><span class="stars">'+stars(rv.rating)+'</span><p>'+esc(rv.text)+'</p><div class="nm">'+esc(rv.name)+'</div><div class="src">via '+esc(rv.source||'Google')+'</div></div>').join('')}</div></div></section>
 
   ${d.review_form&&d.review_form.enabled?'<section class="alt" id="leave-review"><div class="wrap"><div class="eyebrow">Had a great experience?</div><h2 class="sec-h">Leave a review.</h2><p class="sec-p">Your words help other drivers in '+esc(ct.city||'town')+' find an honest shop.</p><form class="review" onsubmit="return submitReview(event)"><input name="name" placeholder="Your name" required><div class="stars-in" id="si">'+[1,2,3,4,5].map(n=>'<span data-n="'+n+'" onclick="setStars('+n+')">★</span>').join('')+'</div><textarea name="text" rows="3" placeholder="Tell us about your visit…" required></textarea><button type="submit">Submit review</button><div class="note">'+esc(d.review_form.note||'')+'</div></form></div></section>':''}
 
-  <footer id="claim"><div class="wrap"><div class="brand">${esc(d.business.name)}</div>
+  <section class="claim" id="claim"><div class="wrap">
+    <div class="eyebrow">Ready when you are</div>
+    <h2>Like it? Make this site yours.</h2>
+    <p class="lead">This isn't a mockup — it's your real site, already live with your photos and reviews. Claim it and it's yours, on your own domain, this week.</p>
+    <div class="expect">
+      <div class="e"><b>You control it</b><span>Edit your info, hours, photos and events anytime — paste your WhatsApp, add a special. No developer needed.</span></div>
+      <div class="e"><b>It stays fresh</b><span>New reviews and photos flow in automatically. We email you a weekly recap of visits and interactions.</span></div>
+      <div class="e"><b>No lock-in</b><span>$99/month, simple one-time setup, cancel anytime. No 12-month contracts like the agencies.</span></div>
+    </div>
+    <a class="btn btn-a" href="config.html" style="font-size:16px;padding:16px 30px">Customize & claim it →</a>
+    <div class="price"><b>$99</b>/mo · setup from $300 · no contract</div>
+  </div></section>
+
+  <footer><div class="wrap"><div class="brand">${esc(d.business.name)}</div>
     <div class="grid g3" style="margin-top:18px">
       <div><div style="color:#fff;font-weight:600;margin-bottom:8px">Visit</div>${esc(ct.address||'')}<br><a href="${esc(ct.maps||'#')}">Open in Maps →</a></div>
       <div><div style="color:#fff;font-weight:600;margin-bottom:8px">Call</div><a href="${tel}">${esc(ct.phone_display||'')}</a></div>
@@ -118,6 +148,9 @@ let curStars=5;
 window.setStars=n=>{curStars=n;document.querySelectorAll('#si span').forEach(s=>s.classList.toggle('on',+s.dataset.n<=n));};
 window.submitReview=e=>{e.preventDefault();const f=e.target;alert('Thanks, '+f.name.value+'! Your '+curStars+'-star review was submitted and will appear after a quick review.');f.reset();setStars(5);return false;};
 async function tick(){try{const r=await fetch('./data.json?t='+Date.now(),{cache:'no-store'});render(await r.json());}catch(e){document.getElementById('app').innerHTML='<p style="padding:40px">Could not load data.json</p>';}}
+// Preview en vivo: si esta página está embebida en config.html, dibuja con el dato editado en vez de fetchear.
+window.addEventListener('message',e=>{if(e&&e.data&&e.data.__preview){try{render(e.data.__preview);}catch(x){}}});
+if(window.parent!==window){window.parent.postMessage({__previewReady:true},'*');}
 tick();setStars(5);
 </script>
 </body></html>
