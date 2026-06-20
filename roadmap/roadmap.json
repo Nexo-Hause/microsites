@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-20T00:51:59Z",
+  "updated": "2026-06-20T01:04:30Z",
   "title": "Hoja de Ruta — de nodo producido a cliente que paga",
   "subtitle": "Auto Detailing / Car Wash · Orlando–Tampa FL · venta como agente, producción ~$0",
   "lanes": [
@@ -36,7 +36,7 @@
       "status": "prog",
       "now": true,
       "items": [
-        "<b>⚡ DEMO EN VIVO:</b> si ves esta línea aparecer sola (flash verde), la página se actualizó sin recargar — inyectada 00:51 UTC.",
+        "<b>⚡ AHORA SÍ LO VES:</b> esta línea queda con <b>borde verde</b> aunque llegues tarde, y arriba dice <b>“hace Ns”</b> — prueba de que cambió solo. Inyectada 01:04 UTC.",
         "<b>Identidad de remitente</b> — dominio dedicado de envío (no integrador.pro) + infra de cold email.",
         "<b>Capa de cold email ≠ Resend.</b> Cold → <b>Smartlead/Instantly</b> (warm-up auto o buzones pre-calentados). Resend = post-venta.",
         "<b>Email creíble y de alto impacto</b> — imagen de preview del sitio + cita de reseña real. Nunca un link pelón.",
