@@ -1,139 +1,139 @@
 {
-  "meta": {
-    "slug": "demo",
-    "updated": "2026-06-21",
-    "schema": 1,
-    "note": "Sitio de muestra ficticio — exhibición pública."
+ "meta": {
+  "slug": "demo",
+  "updated": "2026-06-21",
+  "schema": 1,
+  "note": "Sitio de muestra ficticio — exhibición pública."
+ },
+ "claim": {
+  "mode": "demo"
+ },
+ "business": {
+  "name": "Vanta Auto Detailing",
+  "headline": "Restore OEM Clarity With Multi-Stage Correction & 9H Ceramic Shield",
+  "tagline": "Our certified technicians eliminate micro-marring and apply bonded ceramic shields backed by a 7-year warranty.",
+  "emotional_core": "Quiet pride in a car that looks brand new again"
+ },
+ "design": {
+  "primary": "#12141A",
+  "primaryDark": "#0A0C10",
+  "accent": "#00E5FF",
+  "chrome": "#E3E6EA",
+  "ink": "#0B0D10",
+  "paper": "#F5F7FA",
+  "muted": "#6B7280",
+  "success": "#10B981",
+  "headlineFont": "Bricolage Grotesque",
+  "bodyFont": "Manrope"
+ },
+ "contact": {
+  "phone_display": "(407) 555-0188",
+  "phone": "+14075550188",
+  "whatsapp": "14075550188",
+  "whatsapp_verified": false,
+  "address": "Serving Greater Orlando, FL",
+  "city": "Orlando, FL",
+  "maps": "",
+  "hours": [
+   "Monday: 8:00 AM – 6:00 PM",
+   "Tuesday: 8:00 AM – 6:00 PM",
+   "Wednesday: 8:00 AM – 6:00 PM",
+   "Thursday: 8:00 AM – 6:00 PM",
+   "Friday: 8:00 AM – 6:00 PM",
+   "Saturday: 9:00 AM – 3:00 PM",
+   "Sunday: Closed"
+  ]
+ },
+ "cta": {
+  "mode": "call"
+ },
+ "services": [
+  {
+   "name": "Full Interior Detail",
+   "desc": "Deep extraction of seats, carpets and trim — the inside feels new, not just wiped."
   },
-  "claim": {
-    "mode": "demo"
+  {
+   "name": "Paint Correction & Ceramic",
+   "desc": "Swirl and scratch correction with a long-lasting ceramic coat that beads water for years."
   },
-  "business": {
-    "name": "Vanta Auto Detailing",
-    "headline": "We don’t just wash it. We bring it back to showroom.",
-    "tagline": "A detail-obsessed mobile shop serving Greater Orlando — honest assessments, ceramic-grade protection, and a finish you can see in the reflection.",
-    "emotional_core": "Quiet pride in a car that looks brand new again"
-  },
-  "design": {
-    "primary": "#0B2A4A",
-    "primaryDark": "#06192F",
-    "accent": "#d9ac26",
-    "chrome": "#C9D2DC",
-    "ink": "#0E141B",
-    "paper": "#FFFFFF",
-    "muted": "#5A6573",
-    "success": "#1FAE5A",
-    "headlineFont": "Space Grotesk",
-    "bodyFont": "Inter"
-  },
-  "contact": {
-    "phone_display": "(407) 555-0188",
-    "phone": "+14075550188",
-    "whatsapp": "14075550188",
-    "whatsapp_verified": false,
-    "address": "Serving Greater Orlando, FL",
-    "city": "Orlando, FL",
-    "maps": "",
-    "hours": [
-      "Monday: 8:00 AM – 6:00 PM",
-      "Tuesday: 8:00 AM – 6:00 PM",
-      "Wednesday: 8:00 AM – 6:00 PM",
-      "Thursday: 8:00 AM – 6:00 PM",
-      "Friday: 8:00 AM – 6:00 PM",
-      "Saturday: 9:00 AM – 3:00 PM",
-      "Sunday: Closed"
-    ]
-  },
-  "cta": {
-    "mode": "call"
-  },
-  "services": [
-    {
-      "name": "Full Interior Detail",
-      "desc": "Deep extraction of seats, carpets and trim — the inside feels new, not just wiped."
-    },
-    {
-      "name": "Paint Correction & Ceramic",
-      "desc": "Swirl and scratch correction with a long-lasting ceramic coat that beads water for years."
-    },
-    {
-      "name": "Exterior Wash & Gloss",
-      "desc": "Hand wash, decontamination and a glossy sealant that holds up to Florida sun."
-    }
-  ],
-  "highlights": [
-    "We inspect and quote before we touch your car — no surprise upsells.",
-    "Mobile: we come to your home or office across Greater Orlando.",
-    "Ceramic and correction work backed by a written warranty."
-  ],
-  "photos": [
-    {
-      "src": "photos/photo-0.jpg",
-      "alt": "That shine after a fresh detail!",
-      "hero": true
-    },
-    {
-      "src": "photos/photo-8.jpg",
-      "alt": "Bringing interiors back to life, one seat at a time.",
-      "hero": false
-    },
-    {
-      "src": "photos/photo-2.jpg",
-      "alt": "Ready for the road ahead with a pristine finish.",
-      "hero": false
-    },
-    {
-      "src": "photos/photo-6.jpg",
-      "alt": "That shine after a fresh detail!",
-      "hero": false
-    }
-  ],
-  "reviews_aggregate": {
-    "rating": 5,
-    "count": 47
-  },
-  "reviews": [
-    {
-      "name": "Marcus Trent",
-      "rating": 5,
-      "source": "Google",
-      "text": "Brought my truck in covered in swirl marks. Picked it up looking better than the day I bought it. These guys are the real deal."
-    },
-    {
-      "name": "Priya S.",
-      "rating": 5,
-      "source": "Google",
-      "text": "They came to my office and detailed my SUV in the parking lot. Inside looked brand new — no more dog hair anywhere. Worth every penny."
-    },
-    {
-      "name": "Dewayne K.",
-      "rating": 5,
-      "source": "Google",
-      "text": "Honest quote up front, no pressure to add stuff I didn’t need. The ceramic coat still beads water months later."
-    },
-    {
-      "name": "Hannah R.",
-      "rating": 5,
-      "source": "Google",
-      "text": "My black sedan finally looks black again instead of dusty gray. The reflection is unreal. Already booked my next one."
-    },
-    {
-      "name": "Owner — Vanta",
-      "rating": 5,
-      "source": "Reply",
-      "text": "Thank you all — every car gets treated like it’s our own. See you next time."
-    }
-  ],
-  "events": [
-    {
-      "title": "Summer Ceramic Special",
-      "start": "2026-06-25",
-      "end": "2026-07-31",
-      "description": "20% off ceramic coating packages booked this month."
-    }
-  ],
-  "review_form": {
-    "enabled": true,
-    "note": "Captura de reseña first-party — los envíos entran a una cola y se moderan antes de publicar."
+  {
+   "name": "Exterior Wash & Gloss",
+   "desc": "Hand wash, decontamination and a glossy sealant that holds up to Florida sun."
   }
+ ],
+ "highlights": [
+  "We inspect and quote before we touch your car — no surprise upsells.",
+  "Mobile: we come to your home or office across Greater Orlando.",
+  "Ceramic and correction work backed by a written warranty."
+ ],
+ "photos": [
+  {
+   "src": "photos/photo-0.jpg",
+   "alt": "That shine after a fresh detail!",
+   "hero": true
+  },
+  {
+   "src": "photos/photo-8.jpg",
+   "alt": "Bringing interiors back to life, one seat at a time.",
+   "hero": false
+  },
+  {
+   "src": "photos/photo-2.jpg",
+   "alt": "Ready for the road ahead with a pristine finish.",
+   "hero": false
+  },
+  {
+   "src": "photos/photo-6.jpg",
+   "alt": "That shine after a fresh detail!",
+   "hero": false
+  }
+ ],
+ "reviews_aggregate": {
+  "rating": 5,
+  "count": 47
+ },
+ "reviews": [
+  {
+   "name": "Marcus Trent",
+   "rating": 5,
+   "source": "Google",
+   "text": "Brought my truck in covered in swirl marks. Picked it up looking better than the day I bought it. These guys are the real deal."
+  },
+  {
+   "name": "Priya S.",
+   "rating": 5,
+   "source": "Google",
+   "text": "They came to my office and detailed my SUV in the parking lot. Inside looked brand new — no more dog hair anywhere. Worth every penny."
+  },
+  {
+   "name": "Dewayne K.",
+   "rating": 5,
+   "source": "Google",
+   "text": "Honest quote up front, no pressure to add stuff I didn’t need. The ceramic coat still beads water months later."
+  },
+  {
+   "name": "Hannah R.",
+   "rating": 5,
+   "source": "Google",
+   "text": "My black sedan finally looks black again instead of dusty gray. The reflection is unreal. Already booked my next one."
+  },
+  {
+   "name": "Owner — Vanta",
+   "rating": 5,
+   "source": "Reply",
+   "text": "Thank you all — every car gets treated like it’s our own. See you next time."
+  }
+ ],
+ "events": [
+  {
+   "title": "Summer Ceramic Special",
+   "start": "2026-06-25",
+   "end": "2026-07-31",
+   "description": "20% off ceramic coating packages booked this month."
+  }
+ ],
+ "review_form": {
+  "enabled": true,
+  "note": "Captura de reseña first-party — los envíos entran a una cola y se moderan antes de publicar."
+ }
 }
