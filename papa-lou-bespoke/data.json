@@ -81,6 +81,109 @@
  "claim": {
   "mode": "prospect"
  },
+ "jsonld": {
+  "@context": "https://schema.org",
+  "@type": [
+   "LocalBusiness",
+   "AutoWash"
+  ],
+  "name": "Papá Lou Auto Spa",
+  "url": "https://nexo-hause.github.io/microsites/papa-lou-bespoke/",
+  "image": "https://nexo-hause.github.io/microsites/papa-lou-bespoke/photos/photo-0.jpg",
+  "telephone": "+1 407-545-1956",
+  "address": {
+   "@type": "PostalAddress",
+   "streetAddress": "1316 Dakota Ave",
+   "addressLocality": "St Cloud",
+   "addressCountry": "US",
+   "addressRegion": "FL",
+   "postalCode": "34769"
+  },
+  "openingHoursSpecification": [
+   {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": "https://schema.org/Monday",
+    "opens": "09:30",
+    "closes": "19:00"
+   },
+   {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": "https://schema.org/Tuesday",
+    "opens": "09:30",
+    "closes": "19:00"
+   },
+   {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": "https://schema.org/Wednesday",
+    "opens": "09:30",
+    "closes": "19:00"
+   },
+   {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": "https://schema.org/Thursday",
+    "opens": "09:30",
+    "closes": "15:00"
+   },
+   {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": "https://schema.org/Friday",
+    "opens": "09:30",
+    "closes": "19:00"
+   },
+   {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": "https://schema.org/Saturday",
+    "opens": "09:30",
+    "closes": "19:00"
+   }
+  ],
+  "aggregateRating": {
+   "@type": "AggregateRating",
+   "ratingValue": 5,
+   "reviewCount": 20
+  },
+  "review": [
+   {
+    "@type": "Review",
+    "author": {
+     "@type": "Person",
+     "name": "Triple A"
+    },
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": "5"
+    },
+    "reviewBody": "Incredible work, extremely professional and very accommodating.  They went above and beyond my expectations. I strongly recommend them for any detailing service you may need. They detailed the inside seats of my mothers car that were beyond filthy.. see photos for beginning and e"
+   },
+   {
+    "@type": "Review",
+    "author": {
+     "@type": "Person",
+     "name": "Todd Dunn"
+    },
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": "5"
+    },
+    "reviewBody": "I have been coming to Papa Lou’s for over a year now he does amazing work my car comes in looking old and when he is finished it looks new. He is an ho man he will tell you straight if you need something or if yiu don’t. He is fair with his pricing and will always want to look at"
+   },
+   {
+    "@type": "Review",
+    "author": {
+     "@type": "Person",
+     "name": "Lee Ortiz"
+    },
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": "5"
+    },
+    "reviewBody": "Best car detailing in the St. Cloud area! Auto detailing, ceramic coating, headlight restoration, paint correction, paint decontamination. He does it all!  Very professional, super detailed, great service, affordable pricing. Highly recommend!"
+   }
+  ],
+  "areaServed": "St Cloud"
+ },
+ "public_base": "https://nexo-hause.github.io/microsites/papa-lou-bespoke",
+ "canonical": "https://nexo-hause.github.io/microsites/papa-lou-bespoke/",
  "meta": {
   "slug": "papa-lou",
   "schema": 1
