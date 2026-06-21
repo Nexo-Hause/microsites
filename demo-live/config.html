@@ -1,0 +1,113 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Configure your site</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,Segoe UI,Roboto,system-ui,sans-serif;color:#13202e;background:#eef1f5}
+.bar{background:#0B2A4A;color:#fff;padding:13px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.bar b{font-size:16px}.bar .sp{flex:1}.bar .hint{font-size:12px;opacity:.85}
+.bar .save{background:#d9ac26;color:#13202e;border:0;font-weight:700;padding:10px 18px;border-radius:8px;cursor:pointer}
+.wrap{display:grid;grid-template-columns:minmax(320px,440px) 1fr;height:calc(100vh - 52px)}
+.panel{overflow:auto;padding:20px;background:#fff;border-right:1px solid #dde3ea}
+.preview{position:relative;background:#cfd6de}
+.preview iframe{width:100%;height:100%;border:0;display:block}
+.preview .lbl{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.6);color:#fff;font-size:11px;padding:4px 9px;border-radius:6px;z-index:2}
+h2{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#6b7a8d;margin:24px 0 8px;border-bottom:1px solid #eef1f5;padding-bottom:6px}
+h2:first-of-type{margin-top:4px}
+label{display:block;font-size:13px;font-weight:600;margin:11px 0 4px;color:#34465a}
+input,textarea{width:100%;border:1px solid #cdd6e0;border-radius:8px;padding:9px 11px;font:inherit;font-size:14px}
+textarea{resize:vertical}
+.wa{background:#e9f9ef;border:1px solid #b6e6c8;border-radius:10px;padding:12px;margin-top:6px}
+.wa .st{font-size:12.5px;margin-top:8px;font-weight:600}.wa .ok{color:#0a7d39}.wa .no{color:#9a6a00}
+.ev{border:1px solid #dde3ea;border-radius:10px;padding:12px 12px 4px;margin-top:10px;position:relative}
+.ev .rm{position:absolute;top:8px;right:8px;background:#f3e0e0;color:#a23;border:0;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:12px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.add{margin-top:10px;background:#eef4ff;border:1px solid #c9dcff;color:#1a4f9c;border-radius:8px;padding:8px 14px;cursor:pointer;font-weight:600}
+.savebox{margin:22px 0 10px;background:#fff8e6;border:1px solid #f0dca0;border-radius:10px;padding:14px;font-size:13px;line-height:1.5}
+@media(max-width:880px){.wrap{grid-template-columns:1fr;height:auto}.preview{height:72vh}}
+</style></head><body>
+<div class="bar"><b>⚙️ Your site — configuration</b><span class="hint">edit on the left · watch it change on the right</span><span class="sp"></span><button class="save" onclick="save()">Save changes</button></div>
+<div class="wrap">
+ <div class="panel">
+   <h2>Business</h2>
+   <label>Business name</label><input id="f_name">
+   <label>Headline (the big line on top)</label><textarea id="f_headline" rows="2"></textarea>
+   <label>Tagline</label><textarea id="f_tagline" rows="2"></textarea>
+   <h2>Contact</h2>
+   <label>Phone (shown to customers)</label><input id="f_phone">
+   <label>Address</label><input id="f_address">
+   <label>Hours — one per line, like "Mon: 9-6"</label><textarea id="f_hours" rows="5"></textarea>
+   <h2>WhatsApp</h2>
+   <div class="wa">
+     <label style="margin-top:0">Paste your WhatsApp link or number</label>
+     <input id="f_wa" placeholder="https://wa.me/1... or (407) 555-1234" oninput="onWa()">
+     <div class="st no" id="wa_st">No WhatsApp set — customers see a Call button.</div>
+   </div>
+   <h2>Events &amp; specials</h2>
+   <div id="events"></div>
+   <button class="add" onclick="addEvent()">+ Add event</button>
+   <div class="savebox" id="savebox"><b>How saving works.</b> Changes preview instantly here. "Save changes" downloads your updated file — in the live product this publishes straight to your site (the one-click publish is what we're wiring next).</div>
+ </div>
+ <div class="preview"><div class="lbl">Live preview</div><iframe id="pv" src="index.html"></iframe></div>
+</div>
+<script>
+var DATA=null, frameReady=false;
+function $(id){return document.getElementById(id);}
+function esc(s){return (s==null?'':String(s));}
+function att(s){return esc(s).replace(/"/g,'&quot;');}
+fetch('./data.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){DATA=d;fill();push();});
+window.addEventListener('message',function(e){if(e&&e.data&&e.data.__previewReady){frameReady=true;push();}});
+function fill(){
+  var b=DATA.business||{}, c=DATA.contact||{};
+  $('f_name').value=esc(b.name);$('f_headline').value=esc(b.headline);$('f_tagline').value=esc(b.tagline);
+  $('f_phone').value=esc(c.phone_display||c.phone);$('f_address').value=esc(c.address);
+  $('f_hours').value=(c.hours||[]).join('\n');
+  $('f_wa').value=c.whatsapp?('https://wa.me/'+c.whatsapp):'';
+  renderEvents();waStatus();
+  ['f_name','f_headline','f_tagline','f_phone','f_address','f_hours'].forEach(function(id){$(id).addEventListener('input',collect);});
+}
+function renderEvents(){
+  var box=$('events');box.innerHTML='';
+  (DATA.events||[]).forEach(function(ev,i){
+    var el=document.createElement('div');el.className='ev';
+    el.innerHTML='<button class="rm" onclick="rmEvent('+i+')">remove</button>'+
+      '<label style="margin-top:0">Title</label><input data-i="'+i+'" data-k="title" value="'+att(ev.title)+'">'+
+      '<div class="row2"><div><label>Start</label><input type="date" data-i="'+i+'" data-k="start" value="'+att(ev.start)+'"></div>'+
+      '<div><label>End (optional)</label><input type="date" data-i="'+i+'" data-k="end" value="'+att(ev.end)+'"></div></div>'+
+      '<label>Description</label><textarea rows="2" data-i="'+i+'" data-k="description">'+esc(ev.description)+'</textarea>';
+    box.appendChild(el);
+  });
+  box.querySelectorAll('[data-i]').forEach(function(inp){inp.addEventListener('input',function(){
+    var i=+inp.dataset.i,k=inp.dataset.k;DATA.events[i][k]=inp.value;push();});});
+}
+function addEvent(){DATA.events=DATA.events||[];DATA.events.push({title:'New event',start:'',end:'',description:''});renderEvents();push();}
+function rmEvent(i){DATA.events.splice(i,1);renderEvents();push();}
+function collect(){
+  var b=DATA.business=DATA.business||{},c=DATA.contact=DATA.contact||{};
+  b.name=$('f_name').value;b.headline=$('f_headline').value;b.tagline=$('f_tagline').value;
+  c.phone_display=$('f_phone').value;c.address=$('f_address').value;
+  c.hours=$('f_hours').value.split('\n').map(function(s){return s.trim();}).filter(Boolean);
+  push();
+}
+function onWa(){
+  var raw=$('f_wa').value.trim();var digits=(raw.match(/\d/g)||[]).join('');
+  var c=DATA.contact=DATA.contact||{};DATA.cta=DATA.cta||{};
+  if(digits.length>=10){
+    if(digits.length===10)digits='1'+digits;
+    c.whatsapp=digits;c.whatsapp_verified=true;c.phone='+'+digits;DATA.cta.mode='whatsapp';
+  }else{c.whatsapp='';c.whatsapp_verified=false;DATA.cta.mode='call';}
+  waStatus();push();
+}
+function waStatus(){
+  var c=DATA.contact||{},st=$('wa_st');
+  if(c.whatsapp_verified&&c.whatsapp){st.className='st ok';st.textContent='\u2713 WhatsApp set: wa.me/'+c.whatsapp+' \u2014 customers now get a WhatsApp button.';}
+  else{st.className='st no';st.textContent='No WhatsApp set \u2014 customers see a Call button (tel:).';}
+}
+function push(){if(frameReady&&DATA)$('pv').contentWindow.postMessage({__preview:DATA},'*');}
+function save(){
+  var blob=new Blob([JSON.stringify(DATA,null,2)],{type:'application/json'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='data.json';a.click();
+  $('savebox').innerHTML='<b>Saved \u2713</b> Your updated data.json downloaded. In the live product this publishes to your site automatically \u2014 that one-click publish is what we are wiring next.';
+}
+</script>
+</body></html>
