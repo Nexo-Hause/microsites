@@ -114,7 +114,7 @@ function render(d){
       +'<form class="leadf" onsubmit="return submitLead(event)">'
       +'<input name="biz" placeholder="Business name" required>'
       +'<input name="link" placeholder="Google Maps, Facebook or Instagram link" required>'
-      +'<input name="contact" placeholder="Your email or phone (so we can send it)" required>'
+      +'<input name="contact" type="email" placeholder="Your email (so we can send you the link)" required>'
       +'<button type="submit">Build my page →</button>'
       +'<div class="note" id="leadnote">Free to preview · no card, no commitment.</div>'
       +'</form></div></section>'
@@ -169,7 +169,7 @@ function render(d){
 let curStars=5;
 window.setStars=n=>{curStars=n;document.querySelectorAll('#si span').forEach(s=>s.classList.toggle('on',+s.dataset.n<=n));};
 window.submitReview=e=>{e.preventDefault();const f=e.target;alert('Thanks, '+f.name.value+'! Your '+curStars+'-star review was submitted and will appear after a quick review.');f.reset();setStars(5);return false;};
-window.submitLead=async e=>{e.preventDefault();const f=e.target;const note=document.getElementById('leadnote');note.textContent='Sending…';try{const r=await fetch('https://api.ax2.agency/lead',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({biz:f.biz.value,link:f.link.value,contact:f.contact.value})});if(!r.ok)throw 0;f.reset();note.textContent='Got it! We\'ll build your page and send it within 24h.';}catch(x){note.textContent='Could not send right now — please try again in a moment.';}return false;};
+window.submitLead=async e=>{e.preventDefault();const f=e.target;const note=document.getElementById('leadnote');note.textContent='Sending…';try{const r=await fetch('https://ax2.agency/lead',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({biz:f.biz.value,link:f.link.value,contact:f.contact.value})});if(!r.ok)throw 0;f.reset();note.textContent='Got it! We\'ll build your page and send it within 24h.';}catch(x){note.textContent='Could not send right now — please try again in a moment.';}return false;};
 async function tick(){try{const r=await fetch('./data.json?t='+Date.now(),{cache:'no-store'});render(await r.json());}catch(e){document.getElementById('app').innerHTML='<p style="padding:40px">Could not load data.json</p>';}}
 // Preview en vivo: si esta página está embebida en config.html, dibuja con el dato editado en vez de fetchear.
 window.addEventListener('message',e=>{if(e&&e.data&&e.data.__preview){try{render(e.data.__preview);}catch(x){}}});
