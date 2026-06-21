@@ -46,7 +46,7 @@ textarea{resize:vertical}
    <h2>Events &amp; specials</h2>
    <div id="events"></div>
    <button class="add" onclick="addEvent()">+ Add event</button>
-   <div class="savebox" id="savebox"><b>How saving works.</b> Changes preview instantly here. "Save changes" downloads your updated file — in the live product this publishes straight to your site (the one-click publish is what we're wiring next).</div>
+   <div class="savebox" id="savebox"><b>How saving works.</b> Changes preview instantly on the right. "Save changes" stores them on our servers — when you claim your site, they publish to it automatically.</div>
  </div>
  <div class="preview"><div class="lbl">Live preview</div><iframe id="pv" src="index.html"></iframe></div>
 </div>
@@ -104,10 +104,14 @@ function waStatus(){
   else{st.className='st no';st.textContent='No WhatsApp set \u2014 customers see a Call button (tel:).';}
 }
 function push(){if(frameReady&&DATA)$('pv').contentWindow.postMessage({__preview:DATA},'*');}
-function save(){
-  var blob=new Blob([JSON.stringify(DATA,null,2)],{type:'application/json'});
-  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='data.json';a.click();
-  $('savebox').innerHTML='<b>Saved \u2713</b> Your updated data.json downloaded. In the live product this publishes to your site automatically \u2014 that one-click publish is what we are wiring next.';
+async function save(){
+  var box=$('savebox');box.innerHTML='Saving\u2026';
+  try{
+    var slug=(DATA.meta&&DATA.meta.slug)||location.pathname.split('/').filter(Boolean)[0];
+    var r=await fetch('https://ax2.agency/save',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({slug:slug,data:DATA})});
+    if(!r.ok)throw 0;
+    box.innerHTML='<b>Saved \u2713</b> Your changes are stored on our servers. When you claim your site, they go live automatically.';
+  }catch(x){box.innerHTML='Could not save right now \u2014 please try again in a moment.';}
 }
 </script>
 </body></html>
