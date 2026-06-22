@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cómo construimos el alma — Coach Dave's (proceso vivo)</title>
+<style>
+  :root{
+    --navy:#0B2A4A; --navy2:#06192F; --accent:#d98026; --chrome:#C9D2DC;
+    --paper:#ffffff; --ink:#0E141B; --muted:#5A6573; --line:#e4e8ee;
+    --good:#1FAE5A; --bad:#d64545;
+    --owner:#7c4dff; --customer:#0a84d8; --craft:#d98026;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,system-ui,sans-serif;
+    color:var(--ink);background:#f5f7fa;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px 80px}
+  header{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:38px 18px 30px;margin-bottom:8px}
+  header .inner{max-width:1080px;margin:0 auto}
+  .kick{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  h1{margin:.2em 0 .15em;font-size:27px;line-height:1.18}
+  header p{margin:.2em 0;color:#cdd8e6;font-size:15px;max-width:680px}
+  .real{display:inline-block;margin-top:10px;background:rgba(217,128,38,.18);border:1px solid var(--accent);
+    color:#ffd9a8;font-size:12.5px;font-weight:600;padding:5px 11px;border-radius:999px}
+  h2{font-size:20px;margin:42px 0 4px;display:flex;align-items:center;gap:9px}
+  h2 .n{display:inline-flex;width:27px;height:27px;border-radius:50%;background:var(--navy);color:#fff;
+    font-size:14px;align-items:center;justify-content:center;flex:0 0 auto}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 16px}
+
+  /* PIPELINE GRAPHIC */
+  .pipe{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 18px;margin-top:14px;
+    box-shadow:0 1px 3px rgba(11,42,74,.06);overflow-x:auto}
+  .row{display:flex;align-items:stretch;gap:0;min-width:760px}
+  .node{flex:1;text-align:center;position:relative;padding:0 6px}
+  .chip{background:#fff;border:2px solid var(--line);border-radius:13px;padding:13px 8px 12px;height:100%;
+    display:flex;flex-direction:column;gap:4px;transition:.18s;cursor:default}
+  .chip .ico{font-size:21px}
+  .chip .nm{font-weight:700;font-size:13.5px}
+  .chip .role{font-size:11px;color:var(--muted)}
+  .chip .cost{font-size:10.5px;font-weight:700;margin-top:3px;color:var(--good)}
+  .node.src .chip{border-color:#cfe0f2}
+  .node.distill .chip{border-color:var(--owner);background:#f7f4ff}
+  .node.alma .chip{border-color:var(--accent);background:#fff7ee}
+  .node.site .chip{border-color:var(--navy);background:#eef3f9}
+  .arrow{display:flex;align-items:center;justify-content:center;width:26px;color:var(--chrome);font-size:20px;flex:0 0 auto}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:16px;font-size:12px;color:var(--muted)}
+  .legend b{color:var(--ink)}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  @media(max-width:680px){.grid{grid-template-columns:1fr}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:16px 16px 14px;box-shadow:0 1px 2px rgba(11,42,74,.05)}
+  .card h3{margin:0 0 2px;font-size:15px;display:flex;align-items:center;gap:7px}
+  .tag{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:.04em}
+  .t-over{background:#eaf4ff;color:#0a5cb0} .t-apify{background:#f1ecff;color:#6a3ddb}
+  .t-places{background:#fff1e2;color:#b5631a} .t-scrape{background:#eafaf0;color:#168a48}
+  .card .what{font-size:12px;color:var(--muted);margin:2px 0 9px}
+  .gives{list-style:none;padding:0;margin:0}
+  .gives li{font-size:13.5px;padding:5px 0;border-top:1px dashed var(--line);display:flex;gap:7px}
+  .gives li:first-child{border-top:0}
+  .gives .k{color:var(--muted);flex:0 0 auto}
+  .moves{margin-top:10px;font-size:12px;color:var(--navy);font-weight:600;background:#eef3f9;border-radius:8px;padding:7px 9px}
+  .moves::before{content:"➜ se mueve a: ";color:var(--accent)}
+  .q{font-style:italic;color:var(--ink)}
+
+  /* THREE VOICES */
+  .voices{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:14px}
+  @media(max-width:680px){.voices{grid-template-columns:1fr}}
+  .voice{border-radius:13px;padding:15px;color:#fff}
+  .voice.o{background:linear-gradient(135deg,#7c4dff,#5b34c9)}
+  .voice.c{background:linear-gradient(135deg,#0a84d8,#0761a6)}
+  .voice.k{background:linear-gradient(135deg,#d98026,#b5631a)}
+  .voice .lab{font-size:11px;text-transform:uppercase;letter-spacing:.12em;opacity:.85;font-weight:700}
+  .voice h4{margin:3px 0 8px;font-size:16px}
+  .voice .ex{font-size:13.5px;font-style:italic;background:rgba(255,255,255,.16);border-radius:8px;padding:8px 10px}
+  .voice .frm{font-size:11px;opacity:.8;margin-top:7px}
+  .filled{display:inline-block;background:#fff;color:#5b34c9;font-size:10px;font-weight:800;border-radius:999px;padding:2px 7px;margin-left:6px}
+
+  pre.alma{background:var(--navy2);color:#dbe7f5;border-radius:13px;padding:18px;overflow:auto;font-size:12px;
+    line-height:1.55;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;max-height:560px;border:1px solid #12365c}
+  .alma .key{color:#9ecbff} .alma .str{color:#ffd9a8} .alma .num{color:#7fe0a8}
+  .alma .src{color:#7c8db0;font-style:italic}
+
+  .prov{background:#fff;border:1px solid var(--line);border-left:4px solid var(--good);border-radius:0 13px 13px 0;padding:16px 18px;margin-top:14px}
+  .prov h3{margin:0 0 6px;font-size:15px}
+  .prov table{width:100%;border-collapse:collapse;font-size:13px}
+  .prov td{padding:5px 6px;border-top:1px solid var(--line)}
+  .prov td:first-child{color:var(--muted);width:42%}
+  .prov .panel{margin-top:12px;background:#f2fbf5;border:1px dashed var(--good);border-radius:10px;padding:12px 14px;font-size:13px}
+
+  .flags{margin-top:14px}
+  .flags li{font-size:13px;color:var(--muted);padding:4px 0}
+  .flags b{color:var(--bad)}
+  footer{margin-top:46px;color:var(--muted);font-size:12px;text-align:center}
+</style>
+</head>
+<body>
+<header><div class="inner">
+  <div class="kick">Proceso vivo · ejemplo real</div>
+  <h1>Cómo construimos el alma de un cliente</h1>
+  <p>El recorrido completo, paso a paso, con datos 100% reales de un negocio que podemos atacar. El <b>alma</b> es el archivo que alimenta todo lo demás — diseño, copy, sitio, OKF.</p>
+  <span class="real">Ejemplo: Coach Dave's Barber &amp; Beauty Shop · Harlem, GA · sin sitio web</span>
+</div></header>
+
+<div class="wrap">
+
+  <h2><span class="n">0</span>El gráfico total</h2>
+  <p class="sub">4 fuentes (cada una dueña de una capa, sin pisarse) → destilación → <b>alma.json</b> → sitio + capa para IAs.</p>
+  <div class="pipe">
+    <div class="row">
+      <div class="node src"><div class="chip"><div class="ico">🗺️</div><div class="nm">Overture</div><div class="role">Descubrimiento<br>URL de FB · tel</div><div class="cost">$0</div></div></div>
+      <div class="arrow">→</div>
+      <div class="node src"><div class="chip"><div class="ico">📘</div><div class="nm">Apify</div><div class="role">FB estructurado<br>email · voz dueño</div><div class="cost">$0.01/pág</div></div></div>
+      <div class="arrow">→</div>
+      <div class="node src"><div class="chip"><div class="ico">📍</div><div class="nm">Places</div><div class="role">Fotos · reseñas<br>NAP · horarios</div><div class="cost" style="color:var(--muted)">key</div></div></div>
+      <div class="arrow">→</div>
+      <div class="node src"><div class="chip"><div class="ico">🔎</div><div class="nm">Scrape.do</div><div class="role">Profundidad<br>posts · agregadores</div><div class="cost">free</div></div></div>
+      <div class="arrow" style="color:var(--owner)">⮕</div>
+      <div class="node distill"><div class="chip"><div class="ico">🧪</div><div class="nm">Destilar</div><div class="role">qwen3.5-plus<br>cruza fuentes</div><div class="cost" style="color:var(--good)">$0</div></div></div>
+      <div class="arrow" style="color:var(--accent)">⮕</div>
+      <div class="node alma"><div class="chip"><div class="ico">⭐</div><div class="nm">alma.json</div><div class="role">el artefacto<br>que manda</div></div></div>
+      <div class="arrow" style="color:var(--navy)">⮕</div>
+      <div class="node site"><div class="chip"><div class="ico">🌐</div><div class="nm">Sitio + OKF</div><div class="role">diseño · copy<br>encontrable por IA</div></div></div>
+    </div>
+    <div class="legend">
+      <span>🔵 <b>Fuentes</b> — recolección</span>
+      <span>🟣 <b>Destilar</b> — síntesis (cruzar corrige errores de una sola)</span>
+      <span>🟠 <b>Alma</b> — la verdad no-copiable</span>
+      <span>🔵 <b>Sitio</b> — producción</span>
+    </div>
+  </div>
+
+  <h2><span class="n">1</span>Qué aporta cada fuente — y qué se mueve adelante</h2>
+  <p class="sub">El mismo negocio (Coach Dave's) visto por cada herramienta. Nada se repite entre fuentes.</p>
+  <div class="grid">
+    <div class="card">
+      <h3>🗺️ Overture <span class="tag t-over">descubrimiento</span></h3>
+      <div class="what">Quién es + cómo llegar a él. Enciende todo.</div>
+      <ul class="gives">
+        <li><span class="k">Negocio:</span> Coach Dave's Barber &amp; Beauty Shop</li>
+        <li><span class="k">Dónde:</span> 225 N Louisville St, Harlem GA</li>
+        <li><span class="k">URL de FB:</span> facebook.com/CoachDaves</li>
+        <li><span class="k">Filtro:</span> confirmado <b>sin sitio web</b></li>
+      </ul>
+      <div class="moves">la URL de FB → Apify (sin ella, Apify no tiene a dónde apuntar)</div>
+    </div>
+
+    <div class="card">
+      <h3>📘 Apify <span class="tag t-apify">FB estructurado</span></h3>
+      <div class="what">$0.01. El email + la voz del dueño — lo que nadie más da.</div>
+      <ul class="gives">
+        <li><span class="k">Email:</span> <b>coachdaves@att.net</b> ← el outreach</li>
+        <li><span class="k">Voz dueño:</span> <span class="q">"Therapy is expensive. Get a haircut instead. We're great listeners."</span></li>
+        <li><span class="k">Rating FB:</span> 90 · 24 reseñas</li>
+        <li><span class="k">Categoría:</span> Barber Shop</li>
+      </ul>
+      <div class="moves">email → outreach · la intro → destilar (llena el hueco de la voz del dueño)</div>
+    </div>
+
+    <div class="card">
+      <h3>📍 Places <span class="tag t-places">autoritativo</span></h3>
+      <div class="what">El craft real + la voz de sus clientes + los hechos.</div>
+      <ul class="gives">
+        <li><span class="k">Reseñas:</span> 94 · <b>4.8★</b> (con texto y nombres)</li>
+        <li><span class="k">Voz cliente:</span> <span class="q">"a true Harlem staple"</span>, <span class="q">"lo traigo desde bebé, ya tiene 16"</span></li>
+        <li><span class="k">Fotos:</span> 7 reales → paleta cálida (hue 30)</li>
+        <li><span class="k">Hechos:</span> horarios, NAP, modelo dual salón+barbería</li>
+      </ul>
+      <div class="moves">reseñas + fotos + hechos → destilar · prueba social → sitio</div>
+    </div>
+
+    <div class="card">
+      <h3>🔎 Scrape.do <span class="tag t-scrape">profundidad</span></h3>
+      <div class="what">Free. Suma volumen y autenticidad (no da email).</div>
+      <ul class="gives">
+        <li><span class="k">Posts FB:</span> promos / voz actual</li>
+        <li><span class="k">Fotos extra:</span> FB/IG (más y auténticas)</li>
+        <li><span class="k">Agregadores:</span> Birdeye/BBB/Yelp (reseñas verbatim + nombres)</li>
+        <li><span class="k">Estado:</span> aún no corrido en este nodo</li>
+      </ul>
+      <div class="moves">más reseñas atribuidas + fotos → enriquecer el alma + la prueba social</div>
+    </div>
+  </div>
+
+  <h2><span class="n">2</span>Lo que se movió a destilar: las tres voces</h2>
+  <p class="sub">El destilado cruza las fuentes en las tres voces que forman el alma. La del dueño era el hueco — ahora llena.</p>
+  <div class="voices">
+    <div class="voice o">
+      <div class="lab">Voz del dueño <span class="filled">antes vacía</span></div>
+      <h4>Cómo se describe ÉL</h4>
+      <div class="ex">"Therapy is expensive. Get a haircut instead. We're great listeners."</div>
+      <div class="frm">fuente: Apify (intro de FB)</div>
+    </div>
+    <div class="voice c">
+      <div class="lab">Voz del cliente</div>
+      <h4>Qué dicen SUS clientes</h4>
+      <div class="ex">"Down home goodness at its best — a true Harlem staple." · "Alicia is THE BEST, very patient with small children."</div>
+      <div class="frm">fuente: Places (94 reseñas) + Scrape.do</div>
+    </div>
+    <div class="voice k">
+      <div class="lab">Craft</div>
+      <h4>Su trabajo real</h4>
+      <div class="ex">Barbería + salón de belleza bajo un techo. Especialistas con nombre (Alicia, Coach Dave). Luz de día, sin glamour de stock.</div>
+      <div class="frm">fuente: Places (fotos) + visión</div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px;border-left:4px solid var(--owner)">
+    <h3>🎯 El efecto real de tener la voz del dueño</h3>
+    <div class="what" style="margin-bottom:6px">El alma vieja (solo Places) infirió el headline de los clientes. Con Apify, el candidato #1 pasa a ser su PROPIA frase:</div>
+    <ul class="gives">
+      <li><span class="k">#1 (nuevo):</span> <span class="q">"Therapy is expensive. Get a haircut instead."</span> &nbsp;— su voz, no-copiable</li>
+      <li><span class="k">#2 (antes era #1):</span> <span class="q">"Growing With Harlem Families, One Cut at a Time"</span></li>
+    </ul>
+  </div>
+
+  <h2><span class="n">3</span>El archivo de alma completo</h2>
+  <p class="sub">Este es el artefacto exacto (<code>coach-daves-alma-complete.json</code>) que se envía a generar diseño → copy → sitio. Cada bloque marca su <code>_source</code>.</p>
+  <pre class="alma" id="alma">cargando…</pre>
+
+  <h2><span class="n">4</span>Procedencia → el panel de transparencia del sitio</h2>
+  <p class="sub">De aquí sale el bloque visible y honesto en la página del cliente.</p>
+  <div class="prov">
+    <h3>De dónde viene cada cosa</h3>
+    <table>
+      <tr><td>Email de contacto</td><td>Apify (Facebook)</td></tr>
+      <tr><td>Su voz / cómo se describe</td><td>Facebook (intro propia)</td></tr>
+      <tr><td>Reseñas (94)</td><td>Google · ampliable Birdeye/BBB</td></tr>
+      <tr><td>Fotos (7 reales)</td><td>Google Places</td></tr>
+      <tr><td>Datos, dirección, horarios</td><td>Google Places</td></tr>
+      <tr><td>Paleta de color</td><td>derivada de SUS fotos</td></tr>
+      <tr><td>Inventado</td><td><b style="color:var(--good)">nada</b></td></tr>
+    </table>
+    <div class="panel">
+      <b>Lo que verá Coach Dave en su página:</b><br>
+      "Esta página se construyó SOLO con tus datos públicos reales y los de tus clientes — tus reseñas, tus fotos, tu voz. Nada inventado. Para representarte fielmente, darte presencia ante tu comunidad, y hacerte <b>encontrable por las IAs que viven fuera de Meta</b> — las que tus clientes usan para decidir."
+    </div>
+  </div>
+
+  <h2><span class="n">5</span>Banderas de calidad (el gate las respeta)</h2>
+  <ul class="flags">
+    <li>WhatsApp <b>no verificado</b> → CTA primario = <b>Llamar</b> (tel:), nunca un wa.me inventado.</li>
+    <li>1 reseña de <b>1★</b> en el set → <b>excluida</b> del featurear (testimonios solo positivos).</li>
+    <li>El "website" que devuelve Apify es un pin de mapa → <b>confirma sin-web</b> (no es señal de sitio real).</li>
+    <li>Scrape.do (profundidad) aún <b>no corrido</b> en este nodo — sumaría reseñas de agregadores + fotos.</li>
+  </ul>
+
+  <footer>Proceso vivo · Coach Dave's · todas las cifras son datos públicos reales · este HTML se actualiza conforme evoluciona el pipeline</footer>
+</div>
+
+<script id="data" type="application/json">{
+  "slug": "coach-daves",
+  "_doc": "ALMA COMPLETA — el artefacto que alimenta TODO el resto del proceso (gen-design → fill → audit → publish). Ensamblado de las 4 fuentes. Cada bloque marca su procedencia. Nada inventado.",
+
+  "identity": {
+    "business": "Coach Dave's Barber & Beauty Shop",
+    "city": "Harlem, GA 30814",
+    "address": "225 N Louisville St, Harlem, GA 30814, USA",
+    "phone_display": "(706) 556-9633",
+    "phone": "+1 706-556-9633",
+    "facebook": "https://www.facebook.com/CoachDaves",
+    "place_id": "ChIJG0qNbnp794gRD6VvtQu-5Bk",
+    "_source": { "business+address+place_id+facebook": "Places", "phone": "Overture+Places", "fb_url_discovery": "Overture" }
+  },
+
+  "contact": {
+    "email": "coachdaves@att.net",
+    "whatsapp_verified": false,
+    "cta_primary": "call",
+    "_note": "email SOLO de Apify (no está en ninguna otra fuente). whatsapp_verified=false → CTA primario = Llamar (tel:), NUNCA wa.me inventado.",
+    "_source": { "email": "Apify", "whatsapp_verified": "regla de calidad (no verificado en WA)" }
+  },
+
+  "three_voices": {
+    "owner_voice": {
+      "self_description": "Therapy is expensive. Get a haircut instead. We're great listeners.",
+      "tone": "ingenioso, cálido, autoconsciente — no corporativo",
+      "_source": "Apify (campo intro de FB) — ESTE era el hueco; Places no lo da",
+      "_impact": "Reescribe el headline candidato: pasa de inferido-de-clientes a la PROPIA frase del dueño."
+    },
+    "customer_voice": {
+      "phrases": [
+        "down home goodness at it's best",
+        "A true Harlem staple",
+        "Alicia is THE BEST!! Very patient with small children",
+        "I've been bringing my boy since he was a baby; he's 16 now!",
+        "In and out, great cut and unbeatable price!"
+      ],
+      "_source": "Places (reseñas Google) — enriquecible con Birdeye/BBB vía Scrape.do"
+    },
+    "craft": {
+      "model": "Servicio dual: barbería + salón de belleza bajo un techo",
+      "named_specialists": ["Alicia", "Coach Dave"],
+      "has_before_after": false,
+      "color_mood": "daylight, neutral y tonos cálidos (luz de día, sin glamour de estudio)",
+      "_source": "Places (fotos + reseñas) + visión (gemini-2.5-flash)"
+    }
+  },
+
+  "soul": {
+    "soul_sentence": "A multi-generational Harlem salon and barber shop where families trust named specialists like Alicia and Coach Dave to deliver patient, consistent cuts that grow with them from infancy to adulthood.",
+    "emotional_core": "Generational trust and neighborhood familiarity",
+    "personality": ["Family-oriented", "Community-rooted", "Reliable", "Down-home"],
+    "real_differentiators": [
+      "Dual-service: beauty salon + barber shop under one roof",
+      "Multi-generational loyalty (clients bring kids from babyhood to teens)",
+      "Named resident specialists who build long-term relationships",
+      "Neighborhood 'down home' atmosphere over trendy aesthetics",
+      "Efficient, affordable, reliable for life events and everyday cuts"
+    ],
+    "_source": "Destilado por qwen3.5-plus de TODA la evidencia"
+  },
+
+  "headline_candidates": [
+    { "text": "Therapy is expensive. Get a haircut instead.", "source": "owner_voice (Apify)", "rank": 1, "why": "Su propia voz — no-copiable, memorable, auténtica" },
+    { "text": "Growing With Harlem Families, One Cut at a Time", "source": "customer_voice (Places, destilado)", "rank": 2, "why": "Capta el core multi-generacional" }
+  ],
+
+  "design_direction": {
+    "tone": "Warm, unpretentious, deeply local — un ancla del barrio, no una boutique de lujo",
+    "visual_mood": "Tonos neutros lavados por luz de día, tipografía clara, imágenes auténticas multi-generacionales",
+    "what_to_avoid": "Estética de salón de lujo glossy, fades de stock perfectos, lenguaje urbano trendy, cualquier cosa que ignore la realidad family-friendly de pilar comunitario",
+    "palette": { "primary": "#0B2A4A", "accent": "#d98026", "chrome": "#C9D2DC", "paper": "#FFFFFF", "ink": "#0E141B" },
+    "_source": { "direction": "soul (qwen)", "palette": "palette.mjs sobre SUS fotos reales (hue dominante 30 = cálido)" }
+  },
+
+  "social_proof": {
+    "aggregate": { "rating": 4.8, "count": 94, "source": "Google" },
+    "featured_reviews": [
+      { "name": "Amy james", "rating": 5, "text": "I've been bringing my boy to coach Dave's since he was a baby; he's 16 now! ... A true Harlem staple", "source": "Google" },
+      { "name": "A J H", "rating": 5, "text": "Alicia is THE BEST!! ... Very patient with small children ... Our whole family looks so good thanks to her!", "source": "Google" },
+      { "name": "Mike McGuire", "rating": 5, "text": "In and out, great cut and unbeatable price! Highly recommended!", "source": "Google" }
+    ],
+    "excluded": [
+      { "name": "Maria Jaramillo", "rating": 1, "reason": "regla testimonios-positivos: rating<4 NUNCA se featurea" }
+    ],
+    "_source": "Places hoy; Scrape.do sumaría Birdeye/BBB (volumen + nombres)"
+  },
+
+  "hours": [
+    "Mon: Closed", "Tue: 8:30–12:00, 1:30–5:30", "Wed: 8:30–12:00, 1:30–5:30",
+    "Thu: 8:30–12:00, 1:30–5:30", "Fri: 8:30–12:00, 1:30–5:30", "Sat: 8:00–12:00", "Sun: Closed"
+  ],
+
+  "provenance": {
+    "_doc": "Alimenta el PANEL DE TRANSPARENCIA del sitio. Solo datos públicos reales.",
+    "email": "Apify (Facebook)",
+    "owner_voice": "Facebook (intro propia del negocio)",
+    "reviews": "Google (94) — ampliable Birdeye/BBB",
+    "photos": "Google Places (7 reales)",
+    "facts_NAP_hours": "Google Places",
+    "palette": "derivada de SUS fotos",
+    "invented": "nada",
+    "purpose": "representarlo fielmente, darle presencia ante su comunidad, y hacerlo encontrable por las IAs fuera de Meta (OKF/JSON-LD)"
+  },
+
+  "data_quality_flags": [
+    "whatsapp_verified=false → CTA=Llamar, sin wa.me",
+    "1 reseña 1★ excluida del featurear",
+    "Apify website = maps pin (no es web real) → confirma sin-web",
+    "Scrape.do (profundidad) aún no corrido en este nodo"
+  ]
+}
+</script>
+<script>
+(function(){
+  var raw = document.getElementById('data').textContent;
+  var obj;
+  try{ obj = JSON.parse(raw); }catch(e){ document.getElementById('alma').textContent = raw; return; }
+  // pretty + light syntax highlight
+  var json = JSON.stringify(obj, null, 2);
+  json = json.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  json = json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d+)?(?:[eE][+\-]?\d+)?)/g,
+    function(m){
+      var cls='num';
+      if(/^"/.test(m)){ cls = /:$/.test(m) ? 'key' : 'str'; }
+      else if(/true|false|null/.test(m)){ cls='num'; }
+      return '<span class="'+cls+'">'+m+'</span>';
+    });
+  // dim the _source / _doc / _note lines
+  json = json.replace(/(<span class="key">"_(?:source|doc|note|impact)"<\/span>)/g,'<span class="src">$1');
+  document.getElementById('alma').innerHTML = json;
+})();
+</script>
+</body>
+</html>
